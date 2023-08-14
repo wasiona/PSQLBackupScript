@@ -19,3 +19,24 @@ echo "PGPASSFILE: $PGPASSFILE"
 echo "DB_USERNAME: $DB_USERNAME"
 echo "DB_NAME: $DB_NAME"
 
+
+# Declare location of the backup variable 
+BACKUP_DIRECTORY=/home/meowmeow/Desktop/pg-backup
+
+# Enter backup directory 
+cd "$BACKUP_DIRECTORY" || exit 
+
+# Count the backup files 
+BACKUP_COUNT=$(ls -1 database_backup.sql* | wc -l)
+
+if [ "$BACKUP_COUNT" -gt 5 ]; then
+# Get the oldest backup file name 
+	 OLDEST_BACKUP=$(ls -1 database_backup.sql* | tail -n 1)
+
+ # Delete the oldest backup file
+    rm "$OLDEST_BACKUP"
+    echo "Deleted backup: $OLDEST_BACKUP"
+
+else
+    echo "No need to delete any backups."
+fi
