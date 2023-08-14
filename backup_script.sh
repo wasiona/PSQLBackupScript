@@ -31,7 +31,7 @@ BACKUP_COUNT=$(ls -1 database_backup.sql* | wc -l)
 
 if [ "$BACKUP_COUNT" -gt 5 ]; then
 # Get the oldest backup file name 
-	 OLDEST_BACKUP=$(ls -1 database_backup.sql* | tail -n 1)
+	 OLDEST_BACKUP=$(ls -1 database_backup.sql* | head -n 1)
 
  # Delete the oldest backup file
     rm "$OLDEST_BACKUP"
